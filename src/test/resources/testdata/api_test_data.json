@@ -1,0 +1,18 @@
+{
+  "baseUrl": "http://13.200.185.1/c/deepika-51b4ee",
+
+  "login": {
+    "username": "buyer1",
+    "password": ""
+  },
+
+  "product": {
+    "productId": 513
+  },
+
+  "cart": {
+    "productId": 513,
+    "unit": "case",
+    "quantity": 3
+  }
+}

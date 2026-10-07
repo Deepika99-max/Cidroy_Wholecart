@@ -1,0 +1,8 @@
+{
+  "deliveryDatePicker" : "//input[@type='date']",
+  "showSlots" : "//button[@class='secondary']",
+  "proceedToCheckout" : "//a[@data-testid='go-checkout']",
+  "slotRadioBtn" : "(//input[@name='slot_start'])[3]",
+  "placeOrder" : "//button[@data-testid='place-order']",
+  "orderPLacedMsg" : "//p[text()='Order placed!']"
+}

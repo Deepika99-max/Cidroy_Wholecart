@@ -1,0 +1,8 @@
+{
+  "catalogueHdr" : "//h1[text()='Catalogue']",
+  "productLink" : "(//table//following::tr//following::td//following::a)[4]",
+  "quantityBox" : "//input[@name='qty']",
+  "addToCart" : "//button[@data-testid='add-to-cart']",
+  "netTotal" : "//p[@class='total']"
+
+}
