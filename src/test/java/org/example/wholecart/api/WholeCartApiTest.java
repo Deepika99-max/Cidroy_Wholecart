@@ -16,8 +16,6 @@ import static io.restassured.RestAssured.given;
 public class WholeCartApiTest extends ApiBase {
 
     private String username;
-//    private String password;
-
     private int productId;
     private String unit;
     private int quantity;
