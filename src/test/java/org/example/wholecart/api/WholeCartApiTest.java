@@ -1,5 +1,6 @@
 package org.example.wholecart.api;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -15,11 +16,13 @@ import static io.restassured.RestAssured.given;
 public class WholeCartApiTest extends ApiBase {
 
     private String username;
-    private String password;
+//    private String password;
 
     private int productId;
     private String unit;
     private int quantity;
+    private final Dotenv dotenv = Dotenv.load();
+    String password = dotenv.get("BUYER_PASSWORD");
 
     @BeforeClass
     public void setupApi() {
@@ -152,7 +155,7 @@ public class WholeCartApiTest extends ApiBase {
 
             baseUrl = jsonPath.getString("baseUrl");
             username = jsonPath.getString("login.username");
-            password = jsonPath.getString("login.password");
+//            password = jsonPath.getString("login.password");
             productId = jsonPath.getInt("product.productId");
             unit = jsonPath.getString("cart.unit");
             quantity = jsonPath.getInt("cart.quantity");
