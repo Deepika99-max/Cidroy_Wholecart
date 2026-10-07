@@ -24,8 +24,7 @@ public class LoginTest extends BaseTest {
         pages.getCataloguePage().clickAddToCart();
         pages.getCataloguePage().verifyTotalGreaterThan2000();
         pages.getCheckoutPage().clickproceedToCheckout();
-        pages.getCheckoutPage().clickdeliveryDatePicker();
-        pages.getCheckoutPage().enterdeliveryDate("08","10","2026");
+        pages.getCheckoutPage().enterDeliveryDate(1);
         pages.getCheckoutPage().clickshowSlots();
         pages.getCheckoutPage().selectslotRadioBtn();
         pages.getCheckoutPage().clickplaceOrder();

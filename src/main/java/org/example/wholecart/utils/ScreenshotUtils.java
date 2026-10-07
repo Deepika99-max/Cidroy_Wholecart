@@ -17,32 +17,14 @@ public final class ScreenshotUtils {
 
         try {
 
-            File source = ((TakesScreenshot)
-                    DriverFactory.getDriver())
+            File source = ((TakesScreenshot) DriverFactory.getDriver())
                     .getScreenshotAs(OutputType.FILE);
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
 
-            String timestamp =
-                    LocalDateTime.now()
-                            .format(
-                                    DateTimeFormatter.ofPattern(
-                                            "yyyyMMdd_HHmmss"
-                                    )
-                            );
-
-            String filePath =
-                    "build/screenshots/"
-                            + testName
-                            + "_"
-                            + timestamp
-                            + ".png";
+            String filePath = "build/screenshots/" + testName + "_" + timestamp + ".png";
 
             File destination = new File(filePath);
-
-            FileUtils.copyFile(
-                    source,
-                    destination
-            );
-
+            FileUtils.copyFile(source, destination);
             return destination.getAbsolutePath();
 
         } catch (Exception e) {

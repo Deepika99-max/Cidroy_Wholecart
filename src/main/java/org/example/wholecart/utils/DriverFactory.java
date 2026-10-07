@@ -19,14 +19,9 @@ public final class DriverFactory {
 
     public static void initializeDriver() {
 
-        String browser = System.getProperty(
-                "browser",
-                FrameworkConstants.DEFAULT_BROWSER
-        );
+        String browser = System.getProperty("browser", FrameworkConstants.DEFAULT_BROWSER);
 
-        boolean headless = Boolean.parseBoolean(
-                System.getProperty("headless", "false")
-        );
+        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
 
         WebDriver driver;
 
@@ -34,82 +29,44 @@ public final class DriverFactory {
 
             case "chrome":
 
-                ChromeOptions chromeOptions =
-                        new ChromeOptions();
+                ChromeOptions chromeOptions = new ChromeOptions();
 
                 if (headless) {
-                    chromeOptions.addArguments(
-                            "--headless=new"
-                    );
+                    chromeOptions.addArguments("--headless=new");
                 }
 
-                chromeOptions.addArguments(
-                        "--start-maximized"
-                );
-
-                chromeOptions.addArguments(
-                        "--disable-notifications"
-                );
-
-                driver = new ChromeDriver(
-                        chromeOptions
-                );
-
+                chromeOptions.addArguments("--start-maximized");
+                chromeOptions.addArguments("--disable-notifications");
+                driver = new ChromeDriver(chromeOptions);
                 break;
 
             case "firefox":
 
-                FirefoxOptions firefoxOptions =
-                        new FirefoxOptions();
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
 
                 if (headless) {
-                    firefoxOptions.addArguments(
-                            "--headless"
-                    );
+                    firefoxOptions.addArguments("--headless");
                 }
 
-                driver = new FirefoxDriver(
-                        firefoxOptions
-                );
-
+                driver = new FirefoxDriver(firefoxOptions);
                 break;
 
             default:
 
-                throw new IllegalArgumentException(
-                        "Unsupported browser: " + browser
-                );
+                throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
 
-        driver.manage()
-                .timeouts()
-                .implicitlyWait(
-                        Duration.ZERO
-                );
-
-        driver.manage()
-                .timeouts()
-                .pageLoadTimeout(
-                        Duration.ofSeconds(
-                                FrameworkConstants.PAGE_LOAD_TIMEOUT
-                        )
-                );
-
-        driver.manage()
-                .window()
-                .maximize();
-
+        driver.manage().timeouts().implicitlyWait(Duration.ZERO);
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(FrameworkConstants.PAGE_LOAD_TIMEOUT));
+        driver.manage().window().maximize();
         DRIVER.set(driver);
     }
 
     public static WebDriver getDriver() {
 
         WebDriver driver = DRIVER.get();
-
         if (driver == null) {
-
-            throw new IllegalStateException(
-                    "WebDriver is not initialized."
+            throw new IllegalStateException("WebDriver is not initialized."
             );
         }
 
@@ -119,11 +76,8 @@ public final class DriverFactory {
     public static void quitDriver() {
 
         WebDriver driver = DRIVER.get();
-
         if (driver != null) {
-
             driver.quit();
-
             DRIVER.remove();
         }
     }

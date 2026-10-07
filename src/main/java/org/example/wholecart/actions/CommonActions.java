@@ -27,51 +27,27 @@ public class CommonActions {
 
     public void click(By locator) {
 
-        WebElement element =
-                wait.until(
-                        ExpectedConditions.elementToBeClickable(
-                                locator
-                        )
-                );
-
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
     }
 
     public void enterText(By locator, String value) {
 
-        WebElement element =
-                wait.until(
-                        ExpectedConditions.visibilityOfElementLocated(
-                                locator
-                        )
-                );
-
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.clear();
         element.sendKeys(value);
     }
 
     public String getText(By locator) {
 
-        WebElement element =
-                wait.until(
-                        ExpectedConditions.visibilityOfElementLocated(
-                                locator
-                        )
-                );
-
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return element.getText().trim();
     }
 
     public boolean isDisplayed(By locator) {
 
         try {
-
-            return wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            locator
-                    )
-            ).isDisplayed();
-
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isDisplayed();
         } catch (TimeoutException e) {
 
             return false;
@@ -81,13 +57,7 @@ public class CommonActions {
     public boolean isEnabled(By locator) {
 
         try {
-
-            return wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            locator
-                    )
-            ).isEnabled();
-
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isEnabled();
         } catch (TimeoutException e) {
 
             return false;
@@ -98,12 +68,7 @@ public class CommonActions {
             By locator,
             String visibleText) {
 
-        WebElement element =
-                wait.until(
-                        ExpectedConditions.elementToBeClickable(
-                                locator
-                        )
-                );
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
 
         element.findElements(By.tagName("option"))
                 .stream()
@@ -123,82 +88,48 @@ public class CommonActions {
 
     public void waitForPageTitle(String title) {
 
-        wait.until(
-                ExpectedConditions.titleContains(title)
-        );
-    }
-
-    public void waitForUrlContains(String urlPart) {
-
-        wait.until(
-                ExpectedConditions.urlContains(urlPart)
-        );
+        wait.until(ExpectedConditions.titleContains(title));
     }
 
     public void waitForVisible(By locator) {
 
-        wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        locator
-                )
-        );
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public void waitForClickable(By locator) {
 
-        wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        locator
-                )
-        );
+        wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
     public void scrollIntoView(By locator) {
 
-        WebElement element =
-                wait.until(
-                        ExpectedConditions.presenceOfElementLocated(
-                                locator
-                        )
-                );
-
-        ((JavascriptExecutor) driver)
-                .executeScript(
-                        "arguments[0].scrollIntoView({block:'center'});",
-                        element
-                );
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", element);
     }
 
     public void clickWithJavaScript(By locator) {
 
-        WebElement element =
-                wait.until(
-                        ExpectedConditions.presenceOfElementLocated(
-                                locator
-                        )
-                );
-
-        ((JavascriptExecutor) driver)
-                .executeScript(
-                        "arguments[0].click();",
-                        element
-                );
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
 
-    public void clearAndEnterText(
-            By locator,
-            String value) {
+    public void clearAndEnterText(By locator, String value) {
 
-        WebElement element =
-                wait.until(
-                        ExpectedConditions.visibilityOfElementLocated(
-                                locator
-                        )
-                );
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
         element.click();
         element.sendKeys(Keys.COMMAND, "a");
         element.sendKeys(Keys.BACK_SPACE);
         element.sendKeys(value);
+    }
+    public void setDate(By locator, String date) {
+        WebElement element = driver.findElement(locator);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].value = arguments[1];" +
+                        "arguments[0].dispatchEvent(new Event('input', { bubbles: true }));" +
+                        "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
+                element,
+                date
+        );
     }
 }

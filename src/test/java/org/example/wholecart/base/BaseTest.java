@@ -45,9 +45,7 @@ public class BaseTest implements IHookable {
     public void setUp() {
 
         DriverFactory.initializeDriver();
-
         originalDriver = DriverFactory.getDriver();
-
         WebDriverListener listener =
                 new WebDriverListener() {
 
@@ -61,28 +59,16 @@ public class BaseTest implements IHookable {
                         String methodName = method.getName();
 
                         if (methodName.equals("get")) {
-
-                            captureAction(
-                                    "Open application"
-                            );
+                            captureAction("Open application");
 
                         } else if (methodName.equals("navigate")) {
-
-                            captureAction(
-                                    "Navigate"
-                            );
+                            captureAction("Navigate");
 
                         } else if (methodName.equals("back")) {
-
-                            captureAction(
-                                    "Navigate back"
-                            );
+                            captureAction("Navigate back");
 
                         } else if (methodName.equals("refresh")) {
-
-                            captureAction(
-                                    "Refresh page"
-                            );
+                            captureAction("Refresh page");
                         }
                     }
 
@@ -96,37 +82,21 @@ public class BaseTest implements IHookable {
                         String methodName = method.getName();
 
                         if (methodName.equals("click")) {
-
-                            captureAction(
-                                    "Click element"
-                            );
+                            captureAction("Click element");
 
                         } else if (methodName.equals("sendKeys")) {
-
-                            captureAction(
-                                    "Enter text"
-                            );
+                            captureAction("Enter text");
 
                         } else if (methodName.equals("clear")) {
-
-                            captureAction(
-                                    "Clear field"
-                            );
+                            captureAction("Clear field");
 
                         } else if (methodName.equals("submit")) {
-
-                            captureAction(
-                                    "Submit form"
-                            );
+                            captureAction("Submit form");
                         }
                     }
                 };
 
-        driver =
-                new EventFiringDecorator<>(
-                        listener
-                ).decorate(originalDriver);
-
+        driver = new EventFiringDecorator<>(listener).decorate(originalDriver);
         pages = new PageManager();
     }
 
@@ -146,37 +116,21 @@ public class BaseTest implements IHookable {
         String status =
                 getStatus(testResult);
 
-        String screenshotPath =
-                takeScreenshot(
-                        testResult
-                                .getMethod()
-                                .getMethodName()
-                                + "_"
-                                + status
-                );
+        String screenshotPath = takeScreenshot(testResult.getMethod().getMethodName() + "_" + status);
 
         if (testResult.getStatus()
                 == ITestResult.SUCCESS) {
 
-            ExtentReportManager.pass(
-                    "PASS",
-                    screenshotPath
-            );
+            ExtentReportManager.pass("PASS", screenshotPath);
 
         } else if (testResult.getStatus()
                 == ITestResult.FAILURE) {
 
-            ExtentReportManager.fail(
-                    "FAIL",
-                    screenshotPath
-            );
+            ExtentReportManager.fail("FAIL", screenshotPath);
 
         } else {
 
-            ExtentReportManager.fail(
-                    "SKIPPED",
-                    screenshotPath
-            );
+            ExtentReportManager.fail("SKIPPED", screenshotPath);
         }
     }
 
@@ -187,13 +141,8 @@ public class BaseTest implements IHookable {
             return;
         }
 
-        String screenshotPath =
-                takeScreenshot(action);
-
-        ExtentReportManager.logStep(
-                action,
-                screenshotPath
-        );
+        String screenshotPath = takeScreenshot(action);
+        ExtentReportManager.logStep(action, screenshotPath);
     }
 
     private String takeScreenshot(
@@ -201,11 +150,7 @@ public class BaseTest implements IHookable {
 
         try {
 
-            File source =
-                    ((TakesScreenshot) originalDriver)
-                            .getScreenshotAs(
-                                    OutputType.FILE
-                            );
+            File source = ((TakesScreenshot) originalDriver).getScreenshotAs(OutputType.FILE);
 
             String timestamp =
                     new SimpleDateFormat(
@@ -245,12 +190,6 @@ public class BaseTest implements IHookable {
                     StandardCopyOption.REPLACE_EXISTING
             );
 
-            /*
-             * Important:
-             * The Extent HTML report is inside reports/.
-             * Therefore the screenshot path must be
-             * relative to the reports folder.
-             */
             return "screenshots/" + fileName;
 
         } catch (IOException |

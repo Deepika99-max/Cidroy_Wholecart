@@ -3,7 +3,7 @@ package org.example.wholecart.pages;
 import org.example.wholecart.actions.CommonActions;
 import org.example.wholecart.utils.LocatorReader;
 import org.openqa.selenium.By;
-import org.testng.Assert;
+import java.time.LocalDate;
 
 public class CheckoutPage {
     private static final String LOCATOR_FILE = "checkout.json";
@@ -44,11 +44,9 @@ public class CheckoutPage {
         actions.isDisplayed(orderPLacedMsg);
     }
 
-    public void enterdeliveryDate(String value1, String value2, String value3) {
-        actions.enterText(deliveryDatePicker, value1);
-        actions.enterText(deliveryDatePicker, value2);
-        actions.enterText(deliveryDatePicker, value3);
+    public void enterDeliveryDate(int daysToAdd) {
+        String deliveryDate = LocalDate.now().plusDays(daysToAdd).toString();
+        actions.setDate(deliveryDatePicker, deliveryDate);
     }
-
 
 }
